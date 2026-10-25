@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Huffman Coding Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-icon" aria-hidden="true">⑂</div>
+    <div>
+      <h1>Huffman Coding Visualizer</h1>
+      <p>Compress and decompress text using Huffman Coding</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="left-column">
+      <section class="card input-card">
+        <div class="card-heading"><span>▤</span> Input</div>
+        <div class="card-body">
+          <div class="tabs">
+            <button class="tab active" id="textTab" type="button">✎ Enter Text</button>
+            <button class="tab" id="fileTab" type="button">⇧ Upload File</button>
+          </div>
+          <label class="sr-only" for="inputText">Text to encode</label>
+          <textarea id="inputText" placeholder="Type or paste text here...">AAAABBC</textarea>
+          <div id="fileControls" class="file-controls hidden">
+            <label class="file-label" for="fileInput">Choose a text file</label>
+            <input id="fileInput" type="file" accept=".txt,text/plain" />
+            <span id="fileName" class="muted">No file selected</span>
+          </div>
+          <div class="actions">
+            <button id="runButton" class="primary-button" type="button">▶ Run Huffman Coding</button>
+            <button id="clearButton" class="secondary-button" type="button">↺ Clear</button>
+          </div>
+          <p id="message" class="message" role="status"></p>
+        </div>
+      </section>
+
+      <section class="card results-card">
+        <div class="card-heading"><span>▥</span> Results</div>
+        <div class="card-body">
+          <div class="stat-row"><span>Original size</span><b id="originalSize">—</b></div>
+          <div class="stat-row"><span>Encoded size</span><b id="encodedSize">—</b></div>
+          <div class="stat-row"><span>Estimated bits saved</span><b id="savedPercent" class="success-text">—</b></div>
+          <p class="note">Estimate compares 8 bits per input character with the Huffman bit sequence. This demo displays bits as text; it does not pack them into binary bytes or include the tree/header overhead.</p>
+          <div id="decodeStatus" class="status-box neutral">
+            Run Huffman Coding to see whether decoding reproduces your input.
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="right-column">
+      <section class="card codes-card">
+        <div class="view-tabs">
+          <button class="view-tab active" data-view="codes" type="button">▦ Character Codes</button>
+          <button class="view-tab" data-view="tree" type="button">♧ Huffman Tree</button>
+          <button class="view-tab" data-view="output" type="button">&lt;/&gt; Encoded / Decoded</button>
+        </div>
+        <div class="card-body">
+          <div id="codesView" class="view-panel">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Character</th><th>Frequency</th><th>Huffman Code</th></tr></thead>
+                <tbody id="codesBody"><tr><td colspan="3" class="empty-cell">Your character codes will appear here.</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div id="treeView" class="view-panel hidden">
+            <div id="treeCanvas" class="tree-canvas"><p class="muted">Your Huffman tree will appear here.</p></div>
+          </div>
+          <div id="outputView" class="view-panel hidden">
+            <div class="output-block">
+              <div class="output-title">Encoded bit sequence</div>
+              <div class="output-value"><code id="encodedOutput">—</code><button class="copy-button" data-copy="encodedOutput" type="button" title="Copy encoded sequence">Copy</button></div>
+            </div>
+            <div class="output-block">
+              <div class="output-title">Decoded text</div>
+              <div class="output-value"><pre id="decodedOutput">—</pre><button class="copy-button" data-copy="decodedOutput" type="button" title="Copy decoded text">Copy</button></div>
+            </div>
+            <div class="download-actions">
+              <button id="downloadEncoded" class="secondary-button" type="button">Download encoded.txt</button>
+              <button id="downloadDecoded" class="secondary-button" type="button">Download decoded.txt</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="lower-grid">
+        <section class="card tree-card">
+          <div class="card-heading"><span>♧</span> Huffman Tree</div>
+          <div class="card-body">
+            <div id="treeCanvasSmall" class="tree-canvas"><p class="muted">Run the algorithm to build the tree.</p></div>
+          </div>
+        </section>
+        <section class="card output-card">
+          <div class="card-heading"><span>&lt;/&gt;</span> Encoded / Decoded</div>
+          <div class="card-body">
+            <div class="output-block">
+              <div class="output-title">Encoded (binary)</div>
+              <div class="output-value"><code id="encodedOutputSmall">—</code><button class="copy-button" data-copy="encodedOutputSmall" type="button">Copy</button></div>
+            </div>
+            <div class="output-block">
+              <div class="output-title">Decoded text</div>
+              <div class="output-value"><pre id="decodedOutputSmall">—</pre><button class="copy-button" data-copy="decodedOutputSmall" type="button">Copy</button></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer>Built with HTML, CSS and JavaScript · Huffman Coding educational demo</footer>
+  <script src="script.js"></script>
+</body>
+</html>
